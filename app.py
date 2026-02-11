@@ -80,7 +80,7 @@ res_col1, res_col2 = st.columns(2)
 res_col1.metric("Cena EUR/t", f"{total_eur:.2f} €")
 res_col2.metric("Cena PLN/t", f"{total_pln:.2f} z³")
 
-st.info(f"Waga arkusza: **{waga:.2f} kg** | Wartoœæ arkusza: **{total_eur*(waga/1000):.2f} EUR**")
+st.info(f"Waga arkusza: **{waga:.2f} kg** | Wartość arkusza: **{total_eur*(waga/1000):.2f} EUR**")
 
 # EKSTRAKTY W TABELI
 with st.expander("Zobacz szczegoly doplat"):
@@ -103,4 +103,5 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
