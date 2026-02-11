@@ -9,13 +9,13 @@ st.set_page_config(page_title="Kalkulator 2026", layout="centered")
 
 # BAZA GATUNKOW
 GATUNKI_DATA = {
-    "S235JR": (9, 14), "S355JR": (42, 52), "S355J2+N": (47, 57),
-    "S355J2W+N": (175, 175), "S355J2C+N": (190, 190), "S355K2+N": (62, 62),
-    "S355MC": (33, 48), "S420MC": (25, 68), "S500MC-CAT A": (30, 83),
-    "S550MC-CAT A": (40, 103), "S700MC": (165, 165), "P265GH": (36, 36),
+    "S235JR+N": (9, 24), "S355J2+N": (47, 57), "S355J2+AR": (42, 52), "S355MC": (33, 48), "S700MC": (165, 165), 
+    "S355J2C+N CAT-A": (47, 57), "S355K2+N": (62, 62), "S355J2W+N": (175, 175),
+    "S420MC Ams": (25, 68), "S500MC-CAT A": (30, 83),
+    "S550MC-CAT A": (40, 103), "P265GH": (36, 36),
     "P240NB+N": (39, 39), "P310NB+N": (57, 57), "P355NL1": (101, 101),
     "S355J0WP": (135, 135), "S355J2W": (180, 180), "P355NB+N": (67, 67),
-    "30MNB5": (137, 137), "S235JR+N": (9, 24), "S235J2+N": (24, 24),
+    "30MNB5": (137, 137), "S235J2+N": (24, 24),
     "S235JRCU+N": (34, 49), "S355J2CU+N": (35, 82), "DD11": (2, 2),
     "16MO3": (176, 176)
 }
@@ -58,7 +58,7 @@ st.write(f"Aktualny kurs EUR (NBP): **{kurs} PLN**")
 col1, col2 = st.columns(2)
 with col1:
     baza = st.number_input("Baza (EUR/t)", value=655.0, step=4.0)
-    gatunek = st.selectbox("Gatunek", sorted(list(GATUNKI_DATA.keys())))
+    gatunek = st.selectbox("Gatunek", list(GATUNKI_DATA.keys()))
 with col2:
     t = st.number_input("Grubosc (mm)", value=4.0, step=1.0)
     w = st.number_input("Szerokosc (mm)", value=1500.0, step=100.0)
@@ -102,6 +102,7 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
 
 
