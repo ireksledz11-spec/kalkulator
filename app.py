@@ -57,10 +57,10 @@ st.write(f"Aktualny kurs EUR (NBP): **{kurs} PLN**")
 # INPUTY
 col1, col2 = st.columns(2)
 with col1:
-    baza = st.number_input("Baza (EUR/t)", value=600.0, step=10.0)
+    baza = st.number_input("Baza (EUR/t)", value=655.0, step=4.0)
     gatunek = st.selectbox("Gatunek", sorted(list(GATUNKI_DATA.keys())))
 with col2:
-    t = st.number_input("Grubosc (mm)", value=10.0, step=1.0)
+    t = st.number_input("Grubosc (mm)", value=4.0, step=1.0)
     w = st.number_input("Szerokosc (mm)", value=1500.0, step=100.0)
     l = st.number_input("Dlugosc (mm)", value=6000.0, step=100.0)
 
@@ -102,6 +102,7 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
 
 
