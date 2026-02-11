@@ -5,9 +5,9 @@ import urllib.request
 import json
 
 # Konfiguracja strony
-st.set_page_config(page_title="AMDS Kalkulator 2026", layout="centered")
+st.set_page_config(page_title="Kalkulator 2026", layout="centered")
 
-# BAZA GATUNKÓW
+# BAZA GATUNKOW
 GATUNKI_DATA = {
     "S235JR": (9, 14), "S355JR": (42, 52), "S355J2+N": (47, 57),
     "S355J2W+N": (175, 175), "S355J2C+N": (190, 190), "S355K2+N": (62, 62),
@@ -20,7 +20,7 @@ GATUNKI_DATA = {
     "16MO3": (176, 176)
 }
 
-@st.cache_data(ttl=3600)  # Pobieraj kurs raz na godzinê
+@st.cache_data(ttl=3600)  # Pobieraj kurs raz na godzine
 def get_nbp_euro():
     try:
         url = "https://api.nbp.pl/api/exchangerates/rates/a/eur/?format=json"
@@ -49,8 +49,8 @@ def get_wymiar_extra(t, w):
         if 20.00 <= t <= 25.99: return 35
         return 35
 
-# UI - NAG£ÓWEK
-st.title(" AMDS Kalkulator 2026")
+# UI - NAGLOWEK
+st.title("Kalkulator 2026")
 kurs = get_nbp_euro()
 st.write(f"Aktualny kurs EUR (NBP): **{kurs} PLN**")
 
@@ -60,15 +60,15 @@ with col1:
     baza = st.number_input("Baza (EUR/t)", value=600.0, step=10.0)
     gatunek = st.selectbox("Gatunek", sorted(list(GATUNKI_DATA.keys())))
 with col2:
-    t = st.number_input("Gruboœæ (mm)", value=10.0, step=1.0)
-    w = st.number_input("Szerokoœæ (mm)", value=1500.0, step=100.0)
-    l = st.number_input("D³ugoœæ (mm)", value=6000.0, step=100.0)
+    t = st.number_input("Grubosc (mm)", value=10.0, step=1.0)
+    w = st.number_input("Szerokosc (mm)", value=1500.0, step=100.0)
+    l = st.number_input("Dlugosc (mm)", value=6000.0, step=100.0)
 
 # OBLICZENIA
 idx = 1 if w > 1550 else 0
 e_gat = GATUNKI_DATA[gatunek][idx]
 e_wym = get_wymiar_extra(t, w)
-total_eur = baza + e_gat + e_wym + 43 + 5 + 35 + 4
+total_eur = baza + e_gat + e_wym + 43 + 5 + 35
 total_pln = total_eur * kurs
 waga = (t * w * l * 7.85) / 1_000_000
 
@@ -77,16 +77,16 @@ st.divider()
 st.subheader(f"Wynik dla: {gatunek} {t}x{w}x{l}")
 
 res_col1, res_col2 = st.columns(2)
-res_col1.metric("Cena EUR/t", f"{total_eur:.2f} €")
-res_col2.metric("Cena PLN/t", f"{total_pln:.2f} z³")
+res_col1.metric("Cena EUR/t", f"{total_eur:.2f} â‚¬")
+res_col2.metric("Cena PLN/t", f"{total_pln:.2f} zÂ³")
 
-st.info(f"Waga arkusza: **{waga:.2f} kg** | Wartoœæ arkusza: **{total_eur*(waga/1000):.2f} EUR**")
+st.info(f"Waga arkusza: **{waga:.2f} kg** | WartoÅ“Ã¦ arkusza: **{total_eur*(waga/1000):.2f} EUR**")
 
 # EKSTRAKTY W TABELI
-with st.expander("Zobacz szczegó³y dop³at"):
+with st.expander("Zobacz szczegoly doplat"):
     st.write(f"- Ekstrakt Gatunek: {e_gat} EUR")
     st.write(f"- Ekstrakt Wymiar: {e_wym} EUR")
-    st.write("- Dodatki sta³e (Ciêcie/Atest/Mar¿a/Inne): 87 EUR")
+    st.write("- Dodatki stale (Ciecie/Atest/Marza/): 83 EUR")
 
 # OFERTA
 if st.button("Dodaj do listy ofert"):
@@ -103,3 +103,4 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
