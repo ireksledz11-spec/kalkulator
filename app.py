@@ -87,7 +87,7 @@ st.info(f"Waga arkusza: **{waga:.2f} kg** | Wartość arkusza: **{total_eur*(wag
 with st.expander("Zobacz szczegóły dopłat"):
     st.write(f"- Ekstrakt Gatunek: {e_gat} EUR")
     st.write(f"- Ekstrakt Wymiar: {e_wym} EUR")
-    st.write("- Dodatki stale (Cięcie (43)/Atest(5)/Marża(35)/): 83 EUR")
+    st.write("- Dodatki stale (Cięcie (43)/Atest(5)/): 48 EUR")
 
 # OFERTA
 if st.button("Dodaj do listy ofert"):
@@ -103,6 +103,7 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
 
 
