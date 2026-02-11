@@ -58,6 +58,7 @@ st.write(f"Aktualny kurs EUR (NBP): **{kurs} PLN**")
 col1, col2 = st.columns(2)
 with col1:
     baza = st.number_input("Baza (EUR/t)", value=655.0, step=4.0)
+    marza = st.number_input("Baza (EUR/t)", value=35.0, step=1.0)
     gatunek = st.selectbox("Gatunek", list(GATUNKI_DATA.keys()))
 with col2:
     t = st.number_input("Grubosc (mm)", value=4.0, step=1.0)
@@ -68,7 +69,7 @@ with col2:
 idx = 1 if w > 1550 else 0
 e_gat = GATUNKI_DATA[gatunek][idx]
 e_wym = get_wymiar_extra(t, w)
-total_eur = baza + e_gat + e_wym + 43 + 5 + 35
+total_eur = baza + e_gat + e_wym + marza + 43 + 5
 total_pln = total_eur * kurs
 waga = (t * w * l * 7.85) / 1_000_000
 
@@ -102,6 +103,7 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
 
 
