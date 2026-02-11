@@ -90,8 +90,7 @@ with st.expander("Zobacz szczegóły dopłat"):
 
 # OFERTA
 if st.button("Dodaj do listy ofert"):
-    now = datetime.now().strftime("%H:%M")
-    linia = f"{now} {t}x{w}x{l} {gatunek} - {total_eur:.2f} EUR / {total_pln:.2f} PLN"
+    linia = f"{t}x{w}x{l} {gatunek} - {total_eur:.2f} EUR / {total_pln:.2f} PLN"
 
     if 'oferty' not in st.session_state:
         st.session_state.oferty = []
@@ -103,6 +102,7 @@ if 'oferty' in st.session_state and st.session_state.oferty:
     st.write("### Twoje dzisiejsze wyceny:")
     for o in reversed(st.session_state.oferty):
         st.code(o)
+
 
 
 
